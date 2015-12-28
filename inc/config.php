@@ -8,6 +8,7 @@ class WP_DB_Driver_Config {
 		$driver_folder = dirname( dirname( __FILE__ ) ) . '/drivers';
 
 		$drivers = array(
+			'wpdb_driver_pdo_pgsql' => $driver_folder . '/pdo_pgsql.php',
 			'wpdb_driver_pdo_mysql' => $driver_folder . '/pdo_mysql.php',
 			'wpdb_driver_mysqli'    => $driver_folder . '/mysqli.php',
 			'wpdb_driver_mysql'     => $driver_folder . '/mysql.php',
@@ -42,6 +43,9 @@ class WP_DB_Driver_Config {
 				case 'mysql':
 					$driver = 'wpdb_driver_mysql';
 					break;
+				case 'pdo_pgsql':
+				    $driver = 'wpdb_driver_pdo_pgsql';
+				    break;
 			}
 
 			if ( isset( $drivers[ $driver ] ) ) {
@@ -60,6 +64,7 @@ class WP_DB_Driver_Config {
 		foreach ( $drivers as $class => $file ) {
 			include_once $file;
 
+			// TODO: Fix if more than 1 driver is supported
 			if ( self::class_is_driver_and_supported( $class ) ) {
 				return $class;
 			}
