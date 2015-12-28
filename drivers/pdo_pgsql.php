@@ -325,6 +325,10 @@ class wpdb_driver_pdo_pgsql extends wpdb_driver {
 		return $version;
 	}
 
+	public function is_mysql() {
+		return false;
+	}
+
 
 	/**
 	 * Don't save any state.  The db wrapper should call connect() again.
